@@ -6,9 +6,12 @@ import {
   useColorScheme,
 } from 'react-native';
 
+import {QueryClient, QueryClientProvider} from 'react-query';
+
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import HomeScreen from './app/views/HomeScreen';
 
+const queryClient = new QueryClient();
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -22,7 +25,9 @@ function App(): React.JSX.Element {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <HomeScreen />
+      <QueryClientProvider client={queryClient}>
+        <HomeScreen />
+      </QueryClientProvider>
     </SafeAreaView>
   );
 }
